@@ -5,5 +5,15 @@
 		<title></title>
 	</head>
 	<body>
+		
+		
+		<script type="text/javascript">
+			document.addEventListener('mouseup',up);
+			function up(ev){
+				document.removeEventListener('mouseup',up);
+				document.removeEventListener('mousemove',move);
+			}
+		</script>
 	</body>
+	
 </html>

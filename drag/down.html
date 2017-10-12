@@ -4,10 +4,13 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<style type="text/css">
-			#div1{
+			#box{
 				width: 100px;
 				height: 100px;
 				background-color: olive;
+				position: absolute;
+				left: 0;
+				top: 0;
 			}
 		</style>
 	</head>
@@ -19,7 +22,13 @@
 		
 		
 		<script type="text/javascript">
+			var box=document.querySelector('#box');
 			
+			box.addEventListener('mousedown',down);
+			function down(ev){
+				var disX=ev.clientX-this.offsetLeft;
+				var disY=ev.clientY-this.offsetTop;
+			}
 			
 			
 			
