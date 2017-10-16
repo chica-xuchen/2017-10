@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.ok{
+			    border:1px solid green;
+			    color:green;
+			}
+			.error{
+			    border:1px solid red;
+			    color:red;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<ul>
+			<li class="li" id="li">1</li>
+			<li class="li" id="li">2</li>
+		</ul>
+		<div class="">
+			<input type="text" name="txt" id="txt" value="" />
+			<button id="btn">提交</button>
+		</div>
+		<div class="">
+			<input type="text" name="txt" id="text" value="" />
+			<button id="btn1">邮箱提交</button>
+		</div>
+		
+		
+		
+		<script type="text/javascript">
+		
+		//1.找到下列字符串里的数字,哪个数字最多
+		
+			var str='0dff4sf00yasjjj0044dhwo00bkcafkak22bfka4400';
+			var min=-Infinity;
+			var index='';
+			str=str.split('').sort().join('');
+			
+			str.replace(/(\w)\1+/g,function($0,$1){
+//				console.log($1);
+//				console.log($0);
+				if(min<$0.length){
+					min=$0.length;
+					index=$1;
+				}
+				
+			})
+			console.log('最多的是'+index+',出现了'+min+'次');
+			
+//			//字符串方法
+//			var json={};
+//			
+//			for(var i=0;i<str.length;i++){
+//				if(!json[str[i]]){
+//					json[str[i]]=1;
+//				}else{
+//					json[str[i]]++;
+//				}
+//			}
+//			
+//			var min=-Infinity;
+//			var index='';
+//			
+//			for(var attr in json){
+//				if(json[attr]>min){
+//					min=json[attr];
+//					index=attr;
+//				}
+//			}
+//			alert('最多的是'+index+',出现了'+min+'次');
+
+
+		//2.className兼容封装函数
+			function getByClass(sClass){
+				
+				var s=sClass.charAt();
+				
+				if(s==='#'){
+					return document.getElementById(sClass.substring(1));
+				}else if(s==='.'){
+					if(document.getElementsByClassName){
+						return document.getElementsByClassName(sClass.substring(1));
+						
+					}else{
+						var arr=[];
+						var aEle=document.getElementsByTagName('*');
+						var re=new RegExp('(^|\\s)'+sClass.substring(1)+'(\\s|$)','g');
+						for(var i=0;i<aEle.length;i++){
+							if(re.test(aEle[i].className)){
+								arr.push(aEle[i]);
+							}
+						}
+						return arr;
+					}
+				
+				}
+			}
+			
+//			alert(getByClass('.li').length);
+			
+			
+		//3.计算字节（计算字符串的字节总数是多少，假设一个汉字为2个字节，字母为1个字节）
+			
+			var str='2017年10月16日，祝贺中共十九大顺利召开';
+			var num=0;
+			
+			for(var i=0;i<str.length;i++){
+				if(/[\u4e00-\u9fa5]/.test(str[i])){
+					num+=2;
+				}else{
+					num++;
+				}
+			}
+//			console.log(num);//37
+
+
+
+		//4.QQ验证（都是数字，第一个不能为0.5-12位）
+			var txt=document.querySelector('#txt');
+			var btn=document.querySelector('#btn');
+			
+			btn.onclick=function(){
+				var v=txt.value;
+				
+				if(v){
+					if(/^[1-9]\d{4,11}$/.test(v.trim())){
+						txt.className='ok';
+					}else{
+						txt.className='error';
+					}
+					txt.className=/^[1-9]\d{4,11}$/.test(v.trim())?'ok':'error';
+				}else{
+					alert('请输入内容!')
+				}
+				
+			}
+			
+		
+		//5.邮箱验证（任意字符，除了制表符和空格）
+			var text=document.querySelector('#text');
+			var btn1=document.querySelector('#btn1');
+			
+			btn1.onclick=function(){
+				
+				var content=text.value;
+				
+				if(content){
+					if(/^(1[34578]\d{9})|^([A-Za-z][\w\-]{5,16})|^([1-9]\d{5,9})@[A-Za-z0-9]{2,8}\.[A-Za-z]{2,3}$/.test(content.trim())){
+						text.className='ok';
+					}else{
+						text.className='error';
+					}
+					text.className=/^(1[34578]\d{9})|^([A-Za-z][\w\-]{5,16})|^([1-9]\d{5,9})@[A-Za-z0-9]{2,8}\.[A-Za-z]{2,3}$/.test(content.trim())?'ok':'error';
+				}else{
+					alert('请输入内容');
+				}
+				
+				
+			}
+			
+			
+			
+		</script>
+	</body>
+</html>
