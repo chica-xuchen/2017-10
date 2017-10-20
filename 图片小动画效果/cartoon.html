@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        #box{
+            width:800px;
+            height:500px;
+            overflow: hidden;
+            margin:auto;
+            position: relative;
+        }
+        .imgs{
+            height:500px;
+            overflow: hidden;
+        }
+        img{
+            float: left;
+            width:800px;
+            height:500px;
+        }
+        a{
+            display: block;
+            position: absolute;
+            width:50px;
+            height:100px;
+            border:1px solid #666;
+            top:200px;
+            color:#fff;
+            background-color: rgba(0,0,0,.5);
+            text-align: center;
+            line-height: 100px;
+            font-size:42px;
+            text-decoration: none;
+        }
+        a:first-of-type{
+            left:0;
+        }
+        a:last-of-type{
+            right:0;
+        }
+
+        ul{
+            list-style: none;
+            padding: 0;
+            width:100%;
+            margin-top:-100px;
+            height:100px;
+            position: relative;
+            z-index: 10;
+            width:150px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        li{
+            width:20px;
+            height:20px;
+            background-color: #fff;
+            position: absolute;
+            bottom:20px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="box">
+    <div class="imgs">
+        <img src="img/5.jpg" alt="">
+        <img src="img/1.jpg" alt="">
+        <img src="img/2.jpg" alt="">
+        <img src="img/3.jpg" alt="">
+        <img src="img/4.jpg" alt="">
+        <img src="img/5.jpg" alt="">
+        <img src="img/1.jpg" alt="">
+    </div>
+    <a href="javascript:;">&lt;</a>
+    <a href="javascript:;">&gt;</a>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+<script src="MTween.js"></script>
+<script>
+
+    window.onload = function(){
+
+        //获取元素
+        var imgBox = document.querySelector('.imgs');
+        var btns = document.querySelectorAll('a');
+        var lis = document.querySelectorAll('li');
+        var imgs = document.querySelectorAll('img');
+        var box = document.querySelector('#box');
+
+        var durection = 500;//每个动画的执行时间
+        var delay = 2000;//每次执行动画的间隔时间
+        //动画的间隔时间必须必动画执行时间长
+
+        //动画运行的状态
+        var state = true;//允许运行
+
+        //li动画的默认位置
+        var currLiIndex = 0;
+        var liH = getCss(lis[0],'height');
+
+        //imgBox 默认位置
+        var imgBoxIndex = 1;
+        var imgW = getCss(imgs[0],'width');
+
+        imgBox.style.marginLeft = -imgBoxIndex*imgW+'px';
+
+
+        //初始化li位置
+        for(var i=0;i<lis.length;i++){
+            lis[i].style.left = i*30+'px';
+        }
+        //初始化滚动框的宽度
+        imgBox.style.width = imgs.length*getCss(imgs[0],'width')+'px';
+
+
+        var timer=0;
+        autoPlay();
+
+        //动画思路
+        /*
+        * li
+        * 1.把有高度li运动成原始值
+        * 2.下一个li运动到相对高度
+        *
+        * .imgs
+        *
+        *
+        *
+        *
+        * */
+
+        liPaly();
+
+        //li整体动画
+
+        /*
+        * param:
+        *   direction : 方向
+        *          值： prev ->  向左
+        *               next ->  向右
+        *
+        * */
+
+
+        function liPaly(){
+            for(var i=0;i<lis.length;i++){
+                //让有高度li恢复原位
+                if(getCss(lis[i],'height')>liH){
+                    MTween(lis[i],-20,durection,'height','linear');
+                }
+
+            }
+            //把当前的li高度加上
+            MTween(lis[currLiIndex],20,durection,'height','linear');
+        }
+
+        //图片运动
+        function imgPlay(count,fn){
+
+            MTween(imgBox,count,durection,'marginLeft','linear',function(){
+                //动画完成之后  判断图片应该在的位置
+                if(imgBoxIndex==6){
+                    imgBox.style.marginLeft = -imgW+'px';
+                    imgBoxIndex = 1;
+                }
+
+                if(imgBoxIndex<=0){
+                    imgBox.style.marginLeft = -imgW*(imgs.length-2)+'px';
+                    imgBoxIndex = imgs.length-2;
+                }
+
+                fn&&fn();//如果fn存在，就执行fn函数
+
+            });
+
+
+        }
+
+
+        //向右运动
+        btns[1].onclick = function(){
+            if(!state) return;//当state为false时候不允许在执行新的动画
+            state = false;//点击之后要设置成不能执行的动画的状态
+            currLiIndex++;//当前要升高的li
+            if(currLiIndex>lis.length-1){ //过界处理
+                currLiIndex = 0;
+            }
+            imgBoxIndex++;
+            liPaly();
+            imgPlay(-imgW,function(){
+                state = true;
+            });
+        };
+
+        //向左运动
+        btns[0].onclick = function(){
+            if(!state) return;//当state为false时候不允许在执行新的动画
+            state = false;//点击之后要设置成不能执行的动画的状态
+            currLiIndex--;//当前要升高的li
+            if(currLiIndex<0){ //过界处理
+                currLiIndex = lis.length-1;
+            }
+            imgBoxIndex--;
+            liPaly();
+            imgPlay(imgW,function(){
+                state = true;
+            });
+        };
+
+
+        function autoPlay(){
+            timer = setInterval(function(){
+                if(!state) return;//当state为false时候不允许在执行新的动画
+                state = false;//点击之后要设置成不能执行的动画的状态
+                currLiIndex++;//当前要升高的li
+                if(currLiIndex>lis.length-1){ //过界处理
+                    currLiIndex = 0;
+                }
+                imgBoxIndex++;
+                liPaly();
+                imgPlay(-imgW,function(){
+                    state = true;
+                });
+            },delay);
+        }
+
+        box.onmouseover = function(){
+            clearInterval(timer);
+        }
+        box.onmouseout = function(){
+            autoPlay();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    };
+
+
+</script>
+</body>
+</html>
