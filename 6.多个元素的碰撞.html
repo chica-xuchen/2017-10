@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position:absolute;
+            top:200px;
+        }
+        #box1{
+
+        }
+        #box2{
+            left:500px;
+            top:200px;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+<div id="box1"></div>
+<div id="box2"></div>
+<div id="box3" style="left:620px;"></div>
+<div id="box4" style="left:740px;"></div>
+<div id="box5" style="left:860px;width:200px;"></div>
+
+
+<script>
+
+
+    var box1 = document.querySelector('#box1');
+    var box2 = document.querySelector('#box2');
+
+    var dives = document.querySelectorAll('div');
+
+    //记录所有被碰撞元素的中心点
+    var site = [];
+    for(var i=0;i<dives.length;i++){
+        site.push(
+            {
+                x2 : dives[i].offsetLeft+dives[i].offsetWidth/2,
+                y2 : dives[i].offsetTop+dives[i].offsetHeight/2
+            }
+        );
+    }
+
+    console.log(site);
+
+
+
+
+    //计算  x2 y2
+
+    var x2 = box2.offsetLeft+box2.offsetWidth/2;
+    var y2 = box2.offsetTop+box2.offsetHeight/2;
+
+
+    //x y 的最小距离
+    var w = box2.offsetWidth/2+box1.offsetWidth/2;
+    var h = box2.offsetHeight/2+box1.offsetHeight/2;
+
+    box1.onmousedown = function(ev){
+
+        var _this = this;
+
+        var downX = ev.clientX;
+        var downY = ev.clientY;
+
+        var _left = _this.offsetLeft;
+        var _top = _this.offsetTop;
+
+        document.onmousemove = function(ev){
+
+            var moveX = ev.clientX;
+            var moveY = ev.clientY;
+
+            //计算box1的位置
+            var l = moveX-downX+_left;
+            var t = moveY-downY+_top;
+
+            //x1 y1
+            var x1 = _this.offsetLeft+_this.offsetWidth/2;
+            var y1 = _this.offsetTop+_this.offsetHeight/2;
+
+
+            //有一群被碰撞元素
+            var arr = [];
+            for(var i=0;i<site.length;i++){
+
+                arr.push({
+
+                    x:x1-site[i].x2,
+                    y:y1-site[i].y2
+
+                });
+
+            }
+
+//            var x = x1-x2;
+//            var y = y1-y2;
+
+            //从这一堆被碰撞元素中找到 已经碰撞到的元素
+            for(var i=1;i<arr.length;i++){
+
+                if(Math.abs(arr[i].x)<w&&Math.abs(arr[i].y)<h){
+                    console.log(dives[i].id);
+                }
+            }
+
+
+//            if(Math.abs(x)<w&&Math.abs(y)<h){
+//                console.log('碰上了');
+//            }else{
+//                console.log('没碰上');
+//            }
+
+
+
+
+
+            //设置样式
+            _this.style.left = l +'px';
+            _this.style.top = t +'px';
+
+
+
+
+        };
+
+
+    };
+
+    document.onmouseup = function(){
+        document.onmousemove = null;
+    };
+
+
+
+</script>
+</body>
+</html>
