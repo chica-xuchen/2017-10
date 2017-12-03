@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+.active{
+    background: yellow;
+}
+div{
+    width:200px;
+    height: 200px;
+    border: 1px solid #000;
+    display: none;
+}
+div.show{
+    display: block;
+}
+</style>
+</head>
+<body>
+    <button class="active">按钮一</button>
+    <button>按钮二</button>
+    <button>按钮三</button>
+    <div class="show">1111111</div>
+    <div>22222222222</div>
+    <div>3333333333333</div>
+<script>
+    function Tab(){
+        this.btns = document.getElementsByTagName('button');
+        this.content = document.getElementsByTagName('div');
+    }
+    Tab.prototype.Event = function(){
+        var _this = this; //Tab
+        for(var i=0;i<this.btns.length;i++){
+            this.btns[i].index = i;
+            this.btns[i].onclick = function(){
+                //this -> 点击的按钮
+                // console.log(this);
+                // console.log(this.index);
+                _this.tabs(this);
+            }
+        }
+    }
+    Tab.prototype.tabs = function(that){
+       for(var i=0;i<this.btns.length;i++){
+         this.btns[i].className = '';
+         this.content[i].className = '';
+       }
+       that.className = 'active';
+       this.content[that.index].className = 'show';
+    }
+
+
+
+
+
+
+    
+    var t = new Tab;
+    t.Event();
+</script>
+</body>
+</html>
