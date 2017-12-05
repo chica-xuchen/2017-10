@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        zhipeng@miaov.com
+        dsds_dsd@163.com
+        dsds_dsd@yeah.net
+        dsds@gmail.com
+        ndsd-dsdsd@hotmail.com
+
+        . 任意字符（除了制表符和空格）
+
+    ///////////////////////////////////
+        13888888888@139.com  ^(1[34578]\d{9})
+        23132132@qq.com
+
+^(1[34578]\d{9})|^([A-Za-z][\w\-]{5,16})|^([1-9]\d{5,9})@[A-Za-z0-9]{2,8}\.[A-Za-z]{2,3}$
+
+    */
+
+    var re = /^(1[34578]\d{9})|^([A-Za-z][\w\-]{5,16})|^([1-9]\d{5,9})@[A-Za-z0-9]{2,8}\.[A-Za-z]{2,3}$/;
+
+    console.log(re.test('13888888888@qq.com'))
+
+</script>
+</body>
+</html>
