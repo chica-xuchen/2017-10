@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+.active{
+    background: yellow;
+}
+div{
+    width:200px;
+    height: 200px;
+    border: 1px solid #000;
+    display: none;
+}
+div.show{
+    display: block;
+}
+</style>
+</head>
+<body>
+    <button class="active">按钮一</button>
+    <button>按钮二</button>
+    <button>按钮三</button>
+    <div class="show">1111111</div>
+    <div>22222222222</div>
+    <div>3333333333333</div>
+<script>
+    /*
+        有时间写个面向对象版的拖拽。
+    */
+    function Tab(){
+        this.btns = document.getElementsByTagName('button');
+        this.content = document.getElementsByTagName('div');
+        this.num = 0;
+        this.timer = null;
+    }
+    Tab.prototype.Event = function(e){
+        var _this = this;
+       for(var i=0;i<this.btns.length;i++){
+            (function(index){
+                _this.btns[index][e] = function(){
+                    _this.tabs(index);
+                }
+            })(i);
+       }
+    }
+    Tab.prototype.tabs = function(index){
+        for(var i=0;i<this.btns.length;i++){
+            this.btns[i].className = this.content[i].className = '';
+        }
+        this.btns[index].className = 'active';
+        this.content[index].className = 'show';
+    }
+
+    Tab.prototype.toPlay = function(){
+        var _this = this;
+        this.timer = setInterval(function(){
+            _this.num ++;
+            // if(_this.num > _this.btns.length){
+            //     _this.num = 0;
+            // }
+            _this.tabs( _this.num %= _this.btns.length);
+        },1000)
+    }
+
+   
+
+    var t = new Tab;
+    // t.Event('onmouseover');
+    t.toPlay();
+
+// document.onclick = function(){
+//     function fn(){
+//         console.log(this);
+//     }
+//     fn();
+// }
+  
+</script>
+</body>
+</html>
