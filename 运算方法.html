@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/*js提供Math对象下的多个数学方法
+			 * 
+			 * Math.ceil()向上取整
+			 * Math.floor()向下取整
+			 * Math.abs()取绝对值
+			 * Math.max()取最大
+			 * Math.min()取最小
+			 * 
+			 * toFixed() 方法 前面要有主
+			 * 使用方法：obj.toFixed(n)//保留n位小数
+			 * 		toFixed(obj,n)
+			 * 
+			 * 找到数组中最大的值：Math.max.apply(null,arr)
+			 * 找到数组中最小的值：Math.min.apply(null,arr)
+			 * 
+			 * Math.round(number);//返回值为number  
+			 * 四舍五入
+			 * 
+			 * Math.random()//随机数0-1之间的无限不循环小数
+			 * 
+			 * 常用的取整的方法：
+			 * x~y:Math.round(Math.random()*(y-x)+x);
+			 * 0-x:Math.round(Math.random()*x);
+			 * 1~x:Math.ceil(Math.random()*x)||1
+			 * 1~x-1:Math.floor(Math.random()*x)
+			 * 
+			 * 
+			 * */
+			
+//			console.log(Math.ceil(4.123))//5
+//			console.log(Math.floor(4.123))//4
+
+//			var obj=3.1415926
+//			console.log(obj.toFixed(3))//3.142  返回值为string
+
+//			console.log(Math.abs(-100))//100
+
+//			console.log(Math.max(100,20,0,19));//max返回最大的值为100
+//			console.log(Math.min(100,20,0,19));//min返回最小的值为0
+			
+			
+//			let arr=[100,10,30];
+//			console.log(Math.min.apply(null,arr))//10
+//			console.log(Math.max.apply(null,arr))//100
+
+
+//			5-10
+//			console.log(Math.round(Math.random()*5+5))
+			
+//			20-40
+//			console.log(Math.round(Math.random()*20+20))
+
+			//封装随机函数
+			function random(n,m){
+				return Math.round(Math.random()*(m-n)+n)
+			}
+			
+			random(2,10);//2-10随机数
+			console.log(random(2,10))
+			
+			
+			//0-20
+			console.log(Math.round(Math.random()*20))
+		</script>
+	</body>
+</html>
