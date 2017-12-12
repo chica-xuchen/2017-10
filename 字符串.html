@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			/*字符串：'' | ""
+			 * new String
+			 * 
+			 * 需掌握：
+			 * 	字符串拼接：
+			 * 		字符串里的length：只可读不可写
+			 * 		
+			 * 		1.string.charAt(索引)；主要为了兼容IE7以下浏览器
+			 * 		eg.
+			 * 			let str='miaov';
+			 * 			console.log(str.charAt(0));//m
+			 * 
+			 * 		2.charCodeAt();可以把指定的字符转成unicode编码值
+			 * 
+			 * 		两种写法：str.charCodeAt(0)
+			 * 				'm'.charCodeAt()
+			 * 		eg.
+			 * 			let str='miaov';
+						console.log(str.charCodeAt(0));//109
+						console.log('m'.charCodeAt());//109
+						
+					3.string.fromCharCode():
+						 fromCharCode 是 String 的静态方法
+						   而不是作为你创建的 String 对象的方法。
+					 eg.
+					 String.fromCharCode(65,66,67)//A,B,C
+					 
+					4. string.indexOf(指定字符，起始的位置)从左往右找
+					 	返回值为：指定位置的下标
+					 	
+					 	***如果找不到就返回-1
+					 	设置本身的位置只能找本身，如果要往后找，那么要在本身后面加1
+					 	
+					 	eg.
+					 	let str='miaov';
+						console.log(str.indexOf('a',4));//4的位置找不到，所以返回-1
+						console.log(str.indexOf('a',1))//1本身后面加1，所以返回2
+						
+					5.lastIndexOf(查找的字符，指定的位置)
+							从右往左找，指定字符的下标
+					  eg.
+					  let string='miaov';
+					  console.log(string.lastIndexOf('a'));//2
+					  
+					  
+					6.slice()
+					     如果只传一个参数
+					      	从第几位开始截取直到整个字符串截完
+					      	eg.
+					      	let y='miaovhello';
+							console.log(y.slice(3));//ovhello  从下标3的位置一直截取到字符串最后一位，包括3位置的字母
+					  传二个参数：
+					  	1.记法：
+					  		结束位置，但不包含结束位置
+					 	2.记法：
+					 		结束位置-起始位置走几个
+						eg.
+						let y='miaovhello';
+						console.log(y.slice(1,3));//ia  不包括下标3的位置
+						console.log(y.slice(2,7));//aovhe  不包括下标7的位置	
+					
+					
+					7.substring(起始位置，结束位置-但不包括结束位置)
+						截取指定位置字符串的
+						
+						细节：
+							如果第一个参数比第二个参数的值要大，会把参数的位置颠倒顺序，得到和第二参数比第一个参数大一样的值
+							eg.
+							let y='miaovhello';
+							console.log(y.substring(4,2));//ao 
+							console.log(y.substring(2,4));//ao
+							console.log(y.slice(4,2));//第一个参数比第二个参数大师得不到值的，没有这个功能
+							
+							
+					8.string.substr(从多少开始截取多少个)
+					
+					9.string.split()
+						以某些字符为依据，把字符分割出来，放到数组中
+						一般会和数组的jion()合用
+						let s='m-i-a-o-v';
+						console.log(s.split('-'));//["m", "i", "a", "o", "v"]
+						
+						如果用字符串作为分隔符，那么会返回一个双字符串的数组["",""]
+						
+						只有空字符串分割空字符串才会是个空白数组[]
+						
+					10.array.join('')是数组的方法
+						以字符为链接符,链接数组的每项，并且转成字符串
+						一般和字符串的split合用
+				
+					
+			 * 	字符串的操作方法
+			 * 	字符串的转换
+			 * 	逻辑思维
+			 * 	算法
+			 * 
+			 * 
+			 * 
+			 * */
+//			let str='miaov';
+//			console.log(str.indexOf('a',4));//4的位置找不到，所以返回-1
+//			console.log(str.indexOf('a',1))//1本身后面加1，所以返回2
+
+			//字符串中某个字i出现的位置
+//			let str='miaovmiaovmiaovmiaov';
+//			let num=0;
+//			let arr=[];
+//			while(str.indexOf('i',num)!=-1){
+//				arr.push(str.indexOf('i',num));
+//				num=str.indexOf('i',num)+1;
+//			}
+//			console.log(arr)//[1,6,11,16]
+//			
+//			
+			//封装找出字符串中某个字出现的位置
+			let str='hellohellohello';
+			
+			function search(str,s,num){//封装函数，传3个参数
+				let arr=[];//初始化数组为空
+				while(str.indexOf(s,num)!=-1){//循环，当形参s的位置不等于-1的时候，循环遍历s出现的位置
+					arr.push(str.indexOf(s,num));//把每个出现的位置push到arr数组中
+					num=str.indexOf(s,num)+1;//num下标位置就是本身的位置+1
+				}
+				return arr;
+			}
+			
+			console.log(search(str,'l'));//[2, 3, 7, 8, 12, 13]
+			
+			let arr2=search(str,'l');//再从这个数组中找到最大的那个字母后面的字母
+			
+			console.log(str.charAt(Math.max.apply('',arr2)+1));//找出最大的13 字母l，加上1字母就是后面的o
+			
+			
+			//用lastIndexof()找到最大后面一位是多少
+			console.log(str.charAt(str.lastIndexOf('l')+1));//o
+			
+			let z='helloworldnihao';
+			let array=[];
+			let n=z.length-1;
+			while(z.lastIndexOf('l',n)!=-1&&z.lastIndexOf('l',n)!=0){
+				array.push(z.lastIndexOf('l',n));
+				n=z.lastIndexOf('l',n)-1;
+			}
+			console.log(array);//[8, 3, 2]
+			
+			
+//			let string='miaov';
+//			console.log(string.lastIndexOf('a'));//2
+
+			//找到文件的后缀名是什么？
+			let string='miao.jpg.vi.txt';
+			
+			let num=string.lastIndexOf('.');//从右向左找到下标11，是最后一个.的位置
+			console.log(string[num]);
+			let temp=''
+			
+			for(var i=num;i<string.length;i++){
+			
+				temp+=string[i];
+			}
+			console.log(temp)//.txt
+			
+			//第二种方法
+			console.log(string.slice(string.lastIndexOf('.')));//.tex
+			
+			
+			
+			
+//			let y='miaovhello';
+//			console.log(y.slice(1,3));//ia  不包括下标3的位置
+//			console.log(y.slice(2,7));//aovhe  不包括下标7的位置
+
+//			let y='miaovhello';
+//			console.log(y.slice(3));//ovhello  从下标3的位置一直截取到字符串最后一位，包括3位置的字母
+
+//			let y='miaovhello';
+//			console.log(y.substring(4,2));//ao
+//			console.log(y.slice(4,2));//得不到值
+//			console.log(y.substring(2,4));//ao
+
+
+//			let s='m-i-a-o-v';
+//			console.log(s.split('-'));//["m", "i", "a", "o", "v"]
+
+
+
+			//split的小例子
+			
+			
+			
+		</script>
+	</body>
+</html>
