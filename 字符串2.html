@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			/*1.string.toLowerCase()
+			 * 		把大写转成小写,返回字符串-》把大写转成小写的字符串
+			 * 		eg.
+			 * 		let str='HELLO';
+					console.log(str.toLowerCase());//hello
+					console.log(str.charAt(0)+str.slice(1).toLowerCase());//Hello
+					
+			 * 2.string.toUpperCase()
+			 * 		把小写转成大写，返回字符串-》把小写转成大写的字符串
+			 * 		let str='hello';
+					console.log(str.toUpperCase());//HELLO
+					console.log(str.charAt().toUpperCase()+str.slice(1,4)+str.slice(str.length-1).toUpperCase());//HellO
+			 * 
+			 * 3.string.trim()
+			 * 		去掉前后空格
+			 * 		
+			 * 
+			 * 4.string.startsWith()
+			 * 		开头有没有包含某个字符
+			 * 		返回值为布尔值包含true||不包含false
+			 * 
+			 * 	string.endsWith(包含的字符串，第二个参数为第几位是不是以第一个参数为结尾的)
+			 * 		是不是以指定字符结尾的
+			 * 		返回值为布尔值true||不包含false
+			 * 
+			 * string.includes(包含的字符串，起始位置后面的字符串包不包含第一个参数的字符串)
+			 * 
+			 * 
+			 * 
+			 * 5.string.repeat(num)
+			 * 		返回新的字符串
+			 * 		num是重复多少次
+			 * 
+			 * 		注：如果num传0、NaN，会返回空的字符串'';
+			 * 			如果参数是负数和infinite会报错；
+			 * 			如果num是小数，那么会向下取整
+			 * 
+			 * 		'na'.repeat(2.8);//nana  num取整重复两次
+			 * 
+			 * 6.string.padStart(补全的长度（num），'补全的内容')
+			 * 		往前补全
+			 * 	 
+			 *  string.padEnd(补全的长度（num），'补全的内容')
+			 * 		往后补全
+			 * 		如果num<string.length,返回值为字符串不变
+			 * 
+			 * 
+			 * */
+			
+//			let str='HELLO';
+//			console.log(str.toLowerCase());//hello
+//			console.log(str.charAt(0)+str.slice(1).toLowerCase());//Hello
+
+			let str='hello';
+			console.log(str.toUpperCase());//HELLO
+			console.log(str.charAt().toUpperCase()+str.slice(1,4)+str.slice(str.length-1).toUpperCase());//HellO
+			
+		</script>
+	</body>
+</html>
