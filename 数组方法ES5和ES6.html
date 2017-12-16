@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		input{
+			width: 20px;
+			height: 20px;
+		}
+	</style>
+	<body>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+		</ul>
+		<input type="checkbox" id="" name="" />全选
+		<div id="">
+			<input type="checkbox" id="" name="" />
+			<input type="checkbox" id="" name="" />
+			<input type="checkbox" id="" name="" />
+			<input type="checkbox" id="" name="" />
+		</div>
+		<script type="text/javascript">
+			/*1.some()
+			 * 		返回值：布尔值,如果数组中有一个元素满足回调函数条件就返回 true，否则返回 false。
+			 * 	some() 方法用于检测数组中的元素是否满足指定条件（函数提供）。
+				some() 方法会依次执行数组的每个元素：
+									*如果有一个元素满足条件，则表达式返回true , 剩余的元素不会再执行检测。
+									*如果没有满足条件的元素，则返回false。
+				注意 ： some() 不会对空数组进行检测。
+				注意： some() 不会改变原始数组。
+				
+				eg.
+					var arr=[18,16,17,32];
+					var arr2=arr.some(function(currentValue){
+						return currentValue>=18;
+					})
+					console.log(arr2)//true
+				
+				eg2.
+					var arr=[18,16,17,32];
+					var arr2=arr.some(function(currentValue){
+						return currentValue>32;
+					})
+					console.log(arr2)//false
+			 * 
+			 * 	语法：array.some(function(currentValue,index,arr),thisValue)必须。函数，数组中的每个元素都会执行这个函数
+								     函数参数:currentValue：必须。当前元素的值
+								     		       index：可选。当期元素的索引值
+								     		         arr：可选。当期元素属于的数组对象
+			 * 								   thisValue：可选。对象作为该执行回调时使用，传递给函数，用作 "this" 的值。
+													   	   如果省略了 thisValue ，"this" 的值为 "undefined"
+													   	   
+													   	   
+			 * 
+			 *
+			 * 
+			 * 2.every() 方法用于检测数组所有元素是否都符合指定条件（通过函数提供）。
+			 * 即查看数组中每个值是不是满足函数指定条件统一的值
+			 * 			返回值：布尔值。如果所有元素都通过检测返回 true，否则返回 false。
+			 * 		every() 方法使用指定函数检测数组中的所有元素：
+										*如果数组中检测到有一个元素不满足，则整个表达式返回 false ，且剩余的元素不会再进行检测。
+										*如果所有元素都满足条件，则返回 true。
+					注意： every() 不会对空数组进行检测。
+					注意： every() 不会改变原始数组。
+					
+					eg.
+						var arr=[18,16,17,32];
+						var arr2=arr.every(function(currentValue){
+							return currentValue>=18;
+						})
+						console.log(arr2)//false
+					
+					eg2.
+						var arr=[18,16,17,32];
+						var arr2=arr.every(function(currentValue){
+							return currentValue>=16;
+						})
+						console.log(arr2)//true
+					
+					语法：array.every(function(currentValue,index,arr),thisValue)必须。函数，数组中的每个元素都会执行这个函数
+								     函数参数:currentValue：必须。当前元素的值
+								     		       index：可选。当期元素的索引值
+								     		         arr：可选。当期元素属于的数组对象
+			 * 								   thisValue：可选。对象作为该执行回调时使用，传递给函数，用作 "this" 的值。
+													   	   如果省略了 thisValue ，"this" 的值为 "undefined"
+			 * 
+			 * ****ES6中数组方法*****
+			 * 3.array.includes()=》查看数组是否包含某个值
+			 * 		返回值：布尔值 true||false
+			 * 		eg.
+						let a = [1, 2, 3];
+						a.includes(2); // true 
+						a.includes(4); // false
+						
+			 * 
+			 * 		语法：
+			 * 			arr.includes(searchElement)
+						arr.includes(searchElement, fromIndex)
+					参数：
+						searchElement需要查找的元素值。
+						fromIndex（可选）
+							从该索引处开始查找 searchElement。
+							如果为负值，则按升序从 array.length + fromIndex 的索引开始搜索。
+							[1, 2, 3].includes(3, -1); // true  下标=3+-1=2所以包含3
+							默认为 0。
+							如果fromIndex 大于等于数组长度 ，则返回 false 。该数组不会被搜索。
+							eg.
+								var arr = ['a', 'b', 'c'];
+								arr.includes('c', 3);   //false
+								arr.includes('c', 100); // false
+							
+							[1, 2, 3].includes(4);     // false
+							[1, 2, 3].includes(3, 3);  // false
+							
+							如果 fromIndex 为负值，计算出的索引将作为开始搜索searchElement的位置。如果计算出的索引小于 0，
+							则整个数组都会被搜索。
+							eg.
+								var arr = ['a', 'b', 'c'];
+								arr.includes('a', -100); // true
+								arr.includes('b', -100); // true
+								arr.includes('c', -100); // true
+					
+			 * 
+			 * 4.Array.from([]|类数组)从一个类似数组或可迭代对象中创建一个新的数组实例。即把类数组变成数组
+			 * 				返回一个新数组
+			 * 
+			 * 			语法：
+			 * 				Array.from(arrayLike, mapFn, thisArg)
+			 * 				参数：
+			 * 					arrayLike=》想要转换成数组的伪数组对象或可迭代对象。
+			 * 					mapFn=》(可选参数)如果指定了该参数，新数组中的每个元素会执行该回调函数
+			 * 					thisArg=》可选参数，执行回调函数 mapFn 时 this 对象。
+						
+						Array.from() 可以通过以下方式来创建数组对象：
+							伪数组对象（拥有一个 length 属性和若干索引属性的任意对象）
+							可迭代对象（可以获取对象中的元素,如 Map和 Set 等）				
+			 * 			
+			 * 			Array.from() 方法有一个可选参数 mapFn，让你可以在最后生成的数组上再执行一次 map 方法后再返回。
+			 * 			也就是说 Array.from(obj, mapFn, thisArg) 就相当于 Array.from(obj).map(mapFn, thisArg), 
+			 * 			除非创建的不是可用的中间数组。 这对一些数组的子类,如  typed arrays 来说很重要, 因为中间数组的值在调用 map() 
+			 * 			时需要是适当的类型。
+
+						from() 的 length 属性为 1 。
+						
+						 在 ES2015 中， Class 语法允许我们为内置类型（比如 Array）和自定义类新建子类（比如叫 SubArray）。
+						这些子类也会继承父类的静态方法，比如 SubArray.from()，调用该方法后会返回子类 SubArray 的一个实例，
+						而不是 Array 的实例。
+			 * 
+			 * 
+			 * 
+			 * 5.array.find()返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined。
+			 * 		语法：arr.find(callback[, thisArg])
+			 * 		参数：
+			 * 			callback
+							在数组每一项上执行的函数，接收 3 个参数：
+								element
+								当前遍历到的元素。
+								index
+								当前遍历到的索引。
+								array
+								数组本身。
+						thisArg 可选
+						可选，指定 callback 的 this 参数。
+						
+					eg.
+						var arr=[12,19,18,30];
+			
+						console.log(arr.find(function(ele){
+							return ele>18
+						}))//19  只能找到数组中大于18的排在第一个的数
+						
+						
+			 * 
+			 * 6.array.findIndex()返回数组中满足提供的测试函数的第一个元素的索引。否则返回-1。
+			 * 		语法：arr.findIndex(callback[, thisArg])
+			 * 
+			 * 7.array.map()返回一个新的数组
+			 * 
+			 * 8.array.filter(callback)过滤
+			 * 		查看每条数据，某条数据是否符合回调函数条件，把不符合条件的过滤掉
+			 */
+			
+			
+//			var arr=[18,16,17,32];
+//			var arr2=arr.every(function(currentValue){
+//				return currentValue>=16;
+//			})
+//			console.log(arr2)//true
+
+//			//from（）的例子
+//			let arr=[1,2,3,4,5,6];
+//			let str='hello';
+//			console.log(Array.from(arr));//[1, 2, 3, 4, 5, 6]
+//			console.log(Array.from(str));// ["h", "e", "l", "l", "o"]
+//			
+//			//from()的小列子2
+//			let lis=document.getElementsByTagName('li');
+//			
+//			//把类数组变成数组
+//			lis=Array.from(lis);
+//			console.log(lis);// [li, li, li, li, li, li]
+//			lis.forEach((ele,i)=>{
+//				lis[i].onclick=()=>{
+//					alert(i)
+//				}
+//			})
+			
+//			//every()方法的小例子
+//			
+//			let arr=[false,false,false,false];
+//			this.checked=true;
+//			
+//			let inputs=document.getElementsByTagName('input');
+//			
+//			for(let i=1;i<inputs.length;i++){
+//				inputs[i].onclick=function(){
+//					arr[i-1]=this.checked;
+//					inputs[0].checked=arr.every(function(e){
+//						console.log(e);
+//						return e==true
+//						
+//					})
+//				}
+//				
+//			}
+
+			//find的小例子
+			var arr=[12,19,18,30];
+			
+			console.log(arr.find(function(ele){
+				return ele>18
+			}))//19  只能找到数组中大于18的排在第一个的数
+				
+			
+				
+			
+			
+			
+		</script>
+	</body>
+</html>
