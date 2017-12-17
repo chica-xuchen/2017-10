@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/*1.json=>'{}' '[]' 
+			 * 		json必须是标准格式的 如let json={"name":"小红"}
+			 * 		json转对象：
+			 * 			JSON.parse(json)
+			 * 		
+			 * 		对象转json:
+			 * 			JSON.stringify(json)
+			 * 			
+			 * 			注：JSON.stringify()不能转函数和undefined
+			 * 
+			 * 		
+			 * 
+			 * 2.toString()=>所有数据自身都有toString方法
+			 * 		可以转除了十进制的的进制数：
+			 * 				变量.toString(进制数)
+			 * 					注：不能用 数字.toString()会报错的
+			 * 
+			 * 		obj.toString=>[object,object] 第二个Object是当前数据内置对象的object
+			 * 		
+			 * 		只要尝试去alert，就会调用对象toString()方法
+			 * 
+			 * 3.匿名函数不会报错的写法
+			 * 		(function(){
+			 			alert(1);
+			  		})();
+			  		
+			  		+function(){
+					 		alert(2);
+			  		}()	;
+			  		
+			  		-function(){
+					 		alert(3);
+			  		}();
+			  		
+			  		~function(){
+					 		alert(4);
+			  		}()	
+			 * 
+			 *4. eval()=>尽可能把能够执行js代码执行，把字符串转成js
+			 *     eg.
+			 * 			eval('alert(1)')
+			 * 一般应用场景：
+			 * 		1.把一个不标准的json转成对象
+			 * 		2.低版本的浏览器用不了JSON.parse(),JSON.stringify()
+			 * 
+			 * 缺点：容易被注入病毒
+			 * 	
+			 * eval('('+str+')');//在string字符串两边加（）不会报错
+			 * 
+			 * 5.赋值和赋址：
+			 * 	简单类型的赋值就是赋值
+			 * 	复合类型的赋值就是赋址
+			 * 		JavaScript中有两种不同数据类型的值，分别是基本数据类型与引用数据类型
+
+					基本数据类型包含5类，分别是：Number、String、Boolean、Null、Undefined
+					引用数据类型包含剩下的Array、Date、Math、RegExp、Object、Function等
+					将一个值赋给变量时，解析器必须确定这个值是基本类型还是引用类型。
+					
+					基本类型是按值直接访问的
+					引用类型是按引用访问的
+					eg.
+						基本数据类型赋值：
+							//此处是基本数据类型对的赋值
+							//最后在改变了b的值得情况下，a的值不受影响
+							var a = 1;
+							var b = a;
+							b = 10;
+							console.log(a);  //1
+							
+						原因分析：
+							如果从一个变量向另一个变量复制基本类型的值，会在变量变量对象上创建一个新值，
+							然后把该值复制到为新变量分配的位置上
+						也就是说，传值得过程经历了以下几步：
+						1.复制变量的值
+						2.申请一个新的内存地址保存复制的值
+						3.把复制的值的新地址赋给新的变量
+						所以两个变量的值只是在数值上相等，其实在内存中是两个地址，是互相独立的存在
+						因此其中一个发生改变时并不会影响到另外一个
+						
+					eg.
+			 * 			引用数据类型赋值:
+			 * 				//此处是引用数据类型的赋值
+							//在arr2变化的情况下，arr1也会同步变更
+							var arr1 = [1,2,3,4];
+							var arr2 = arr1;
+							arr2[0] = 10;
+							
+							console.log(arr1[0]);  //10
+			 * 			原因分析:
+							当从一个变量向另一个变量复制引用的值时，
+							同样也会将存储在变量对象中的值复制一份放到为新变量分配的空间中。
+							
+							不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中的一个对象。
+							复制操作结束后，两个变量实际上引用同一个对象。
+							
+							也就是说，传址其实就是把一个变量在内存中的地址传给另一个变量
+							改变一个变量，就会影响另外一个变量
+			 * 		
+			 * 		怎么避免传址的风险？
+			 * 
+			 * 			1.for循环的方法
+			 * 				这种方法在遇到复杂数组时比较无力，比如 arr = [1,[2,3],{a:1,b:2}]
+			 * 			eg.
+			 * 				//for循环原数组，将每个参数分别赋值给空数组arr2
+							//缺陷是：当数组中存放了引用类型数据时，就需要多次循环，比较复杂
+							var arr1 = [1,2,3,4]
+							var arr2 = []
+							for (var i = 0; i<arr1.length; i++){
+							    arr2[i] = arr1[i]
+							}
+							arr2[0] = 10;
+							
+							console.log(arr1[0]);  //1  arr1不受影响
+			 * 
+			 * 
+			 * 			2.forEach
+			 * 				forEach是ES5新引入的数组方法，可以用来循环数组及对象array.forEach(callback,[thisObject])
+			 * 				
+			 * 					forEach有两个参数：第一个参数是回调函数，第二个参数是执行回调是this的值
+									回调函数包含3个参数：
+									1.当前循环值
+									2.当前循环下标
+									3.被循环的数组本身
+							
+							eg.
+								var arr1 = [1,2,3,4];
+								 var arr2 = [];
+								 var str = '';
+								 arr1.forEach(function(val){
+								    console.log(val)  //1 2 3 4  这里val是循环值
+								    str += val;
+								 });
+								 arr2 = str.split('')
+								 console.log(arr2)  //["1","2","3","4"] 此处arr已经是数组
+								 arr2[0] = 10;  //改变arr2中的参数
+								 
+								 console.log(arr1[0])  //1  arr1不受影响
+			 * 
+			 * 				
+			 * 			3.JSON.stringify() / JSON.parse()
+			 * 					JSON.stringify()：把对象转换成字符串形式的JSON格式字符串值（无法转换DOM/BOM对象）
+
+								JSON.parse()：把字符串形式的标准JSON字符串转换成对象（属性名称必须有引号）
+								
+								eg.
+									var arr1 = [1,2,[3,4],{a: 'abc',b: true}];
+									var arr2 = JSON.stringify(arr1);
+									arr2 = JSON.parse(arr2);
+									arr2[2][0] = 10;
+									 
+									console.log(arr1[2][0])  //3  arr1不受影响
+
+
+			 * 
+			 * 
+			 * 		 因为对象的赋值为赋址，而简单类型的赋值就是赋值
+
+					        如果直接为对象类型的赋值，改变b就会影响a
+					
+					        但是我们又知道，赋值的目的是让b中有a的内容
+					
+					        如果能拿到a的内容而 **内容又是简单类型**，这个时候
+					        赋值内容就不会是赋址了，而是赋值。
+			 * 
+			 */		
+			 
+//			 eval('alert(1)')
+//			 
+//			 (function(){
+//			 		alert(1);
+//	  		})();	
+//	  		+function(){
+//			 		alert(2);
+//	  		}()	;
+//	  		-function(){
+//			 		alert(3);
+//	  		}();
+//	  		~function(){
+//			 		alert(4);
+//	  		}()	
+
+
+			var arr1 = [1,2,[3,4],{a: 'abc',b: true}];
+			var arr2 = JSON.stringify(arr1);//把数组对象转成了json
+			console.log(arr2)//[1,2,[3,4],{"a":"abc","b":true}]
+			arr2 = JSON.parse(arr2);
+//			console.log(arr2)//[1, 2,[10,4], {a: 'abc',b: true}]
+			arr2[2][0] = 10;
+			 
+			console.log(arr1[2][0])  //3  arr1不受影响
+		</script>
+	</body>
+</html>
