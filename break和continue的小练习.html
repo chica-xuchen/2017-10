@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<ul>
+			<li class="li">1</li>
+			<li class="li1">2</li>
+			<li class="li3">3</li>
+			<li class="li1">4</li>
+			<li class="li">5</li>
+			<li class="li1">6</li>
+		</ul>
+		
+		<script type="text/javascript">
+			//把className为li的li的找出来
+			
+			let lis=document.querySelectorAll('li');
+			let arr=[];
+			for (var i=0;i<lis.length;i++) {
+				if(lis[i].className=='li3'){
+					arr.push(lis[i]);
+					break;
+				}
+			}
+			console.log(arr)
+			
+			
+		</script>
+		
+	</body>
+</html>
