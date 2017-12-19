@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				position: relative;
+			}
+			#box div{
+				position: absolute;
+				top: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			
+		</div>
+		<script type="text/javascript">
+			var box=document.getElementById('box')
+			let arr = ['red','blue','green','skyblue','pink','yellow'];
+			
+			for (var i=0;i<10;i++) {
+				for(var j=0;j<10;j++){
+					box.innerHTML+=`<div style="width:100px;height:100px;background:${arr[j%arr.length]};left:${110*j}px;top:${110*i}px;">${(10*i+(j+1))}</div>`
+				}
+			}
+			
+		</script>
+	</body>
+</html>
