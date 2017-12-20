@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			//实现一个trim方法，兼容所有浏览器
+			
+			//方法一
+			var str='  今天是晴天  ';
+			console.log(str.slice(str.indexOf('今'),str.lastIndexOf('天')+1));
+			console.log(str.lastIndexOf('天')+1);
+			console.log(str.indexOf('今'));
+			
+			console.log(str.substring(str.indexOf('今'),str.lastIndexOf('天')+1));
+			
+			console.log(str.split(' ').join(''));
+			
+			
+			document.onclick=function(){
+				if(str.split(' ').join('')=='今天是晴天'){
+					alert('对了')
+				}else{
+					alert('错了')
+				}
+			}
+			
+			
+			
+			
+			//方法二
+			var str='  miao v  '
+			
+		    for(i=0;i<str.length;i++){
+		        if(str.charAt(i)!==" ")break;//非空格字符的下标
+		    }
+		    str=str.substring(i,str.length);
+		    console.log(str)
+			  
+		    for(i=str.length-1;i>=0;i--){
+		        if(str.charAt(i)!==" ")break;
+		    }
+		    str=str.substring(0,i+1);
+			console.log(str);
+			
+			
+			
+			//方法三
+			
+		</script>
+	</body>
+</html>
