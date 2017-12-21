@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//实现函数传参的形式
+			//第一种写法
+			function calc(x,y){
+				x=x||0;//看参数x是否有值，没有值就为0
+				y=y||0;//看参数y是否有值，没有值就为0
+				return x+y;
+			}
+			alert(calc(1,2));//3
+			
+			alert(calc())//0
+			
+			//第二种写法
+			function test(x,y){
+//				if(x===undefined){
+//					x=0
+//				};
+//				console.log(x);
+				x=x===undefined ? 0 : x;
+				y=y===undefined ? 0 : y;
+//				console.log(y);
+				
+				return x+y;
+			}
+			alert(test());//0
+			alert(test(4,5));//9
+			
+			//第三种写法
+			function test1(x,y){
+				x=arguments[0]?arguments[0]:0;
+				y=arguments[1]?arguments[1]:0;
+				
+				return x+y;
+			}
+			alert(test1());//0
+			alert(test1(1,5));//3
+			
+			
+			
+			
+			//****arguments是数组，他是函数中所有参数组成的数组，获取参数值用arguments[下标]获取，如arguments[0]
+	
+			//可变参数形式的函数，怎么用arguments这个对象来实现可变参数值的和
+			function test2(){
+				var paramsNum=arguments.length;//得到传入参数的个数
+				var sum=0;
+				for(var i=0;i<paramsNum;++i){
+					sum+=arguments[i];
+				};
+				return sum;
+			}
+			alert(test2(1,2,13,15,345,456));//832
+			
+			//用arguments实现弹出数组中的最大值
+			function test3(){
+				var max=0;
+				for (var i=0;i<arguments.length;i++) {
+					if(max<arguments[i]){
+						max=arguments[i];
+					}
+				}
+				return max;
+			}
+			
+			alert(test3(12,45,145,555,2442));//2442
+			
+			
+			
+			
+			/*变量作用域
+			 * 1、局部作用域是在函数体内声明的变量，仅在函数体内可以使用
+			 * 2、全局变量函数体外声明的变量，在变量声明开始到脚本结束都可以使用
+			 * 注意：尽量控制全局变量的数量，容易引发bug
+			 * 		最好总是使用var语句来声明变量
+			 */
+			//全局变量和局部变量的区别
+			function test4(){
+				var x=1;
+				alert(x);
+			}
+			test4();//弹1
+//			alert(x);//报错 因为x是局部变量，在全局找不到，所以报错
+			
+			function test5(){
+				y=5;
+				alert(y);
+			}
+			test5();//5
+			alert(y);//5  因为y前不加var为全局定义变量
+			
+			
+			
+			
+			//自调用执行函数
+			var test6=function(x,y){
+				return x*y;
+			}
+			alert(test6(12,3))//36
+			
+			
+			
+			//回调函数的列子
+			function cb(x,y){
+				return x()+y();
+			}
+			function cb1(){
+				return 3;
+			}
+			function cb2(){
+				return 4;
+			}
+			alert(cb(cb1,cb2));//7
+			
+			
+			//匿名回调函数
+			alert(cb(function(){return 5},function(){return 10}));//15
+			
+			
+			
+			//把数组中的每个值都乘以2加1
+			
+			//第一种方法
+			
+			function order(){
+				var arr=[];
+				for(var i=0;i<4;i++){
+					arr[i]=arguments[i]*2;
+				}
+				
+				return arr;
+			}
+			function addOne(a){
+				return a+1;		
+			};
+			
+			var arr1=[];
+			arr1=order(10,23,45,34);
+//			console.log(arr1);//[20, 46, 90, 68]
+			
+			for(var i=0;i<4;i++){
+				arr1[i]=addOne(arr1[i])
+			}
+			
+			alert(arr1);//21,47,91,69
+			
+			
+			
+			//第二种方法
+			function addOne2(a){
+				return a+1;
+			}
+			function order2(a,b,c,d,callback){
+				var arr=[];
+				for (var i=0;i<arguments.length-1;i++) {
+					arr[i]=callback(arguments[i]*2);
+				}
+				return arr;
+			}
+			alert(order2(13,45,20,30,addOne2))//27,91,41,61
+			
+			
+			
+			//作为函数的调用方法
+			/*apply(函数名参数，数组);
+			  call()
+			*/
+			
+			function app(a,b){
+				return a*b;
+			}
+			alert(app.call(a))
+			
+			
+			
+		</script>
+	</body>
+</html>
