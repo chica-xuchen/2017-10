@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			
+			//把数组里的所有值求和
+			let arr=[1,2,3,4,5,6,7,8,9];
+			let num=0;
+			for(let i=0;i<arr.length;i++){
+				num+=arr[i];
+			}
+			console.log(num);
+			
+			//求数组里最大的值
+			/*1.先设置一个最小值
+        	  2.循环整个数组
+        	  3.如果循环中的某个值比最小值大，最小值就等于这个值,就是最大值
+			/*
+			 * infinite正无穷大
+			 * -infinite 负无穷大
+			 */
+			let min=-Infinity;//先设置一个最小值
+			for (let i=0;i<arr.length;i++) {
+				if(min<arr[i]){
+					min=arr[i]
+				}
+			}
+			console.log(min)//9
+			
+			
+		/*	找到下列数组中最小的值
+	        1.先设置一个最大值
+	        2.循环整个数组
+	        3.如果循环中的某个值比最大值小，最大值就等于这个值，就是最小值
+	    */
+			let max=Infinity;//先设置一个最大值
+			for(var i=0;i<arr.length;i++){
+				if(max>arr[i]){
+					max=arr[i]
+				}
+				console.log(max)//1
+			}
+				
+			//Infinity * 3 等不等于 NaN 
+			console.log(Infinity * 3)//Infinity
+		</script>
+	</body>
+</html>
