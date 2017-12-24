@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script type="text/javascript">
+			//第一题：k的运行结果？
+			var i=0,
+				j=0;
+			for (;i<10,j<6;i++,j++) {
+				k=i+j;
+			};
+			console.log(k)//10 i和j都是循环到5停止，后面的j是多少，i就是多少
+			
+			//第二题：y的值是？
+			var x=1;
+			function fn(n){
+				n=n+1
+			};
+			y=fn(x);
+			console.log(y);//undefined, 函数里面没有return
+			
+			//第三题：下面题目的执行结果是？
+			console.log([1,2,3,4].join('0').split(''));// ["1", "0", "2", "0", "3", "0", "4"]
+			
+			//第四题：下面代码的运行结果是：第一次弹？第二次弹？
+			function fn1(){
+				alert(1)//1
+//				return fn1();
+			};
+			alert(fn1());//undefined,函数里没有return，fn1的返回值就是return出的值，没有就是undefined
+			
+			//第五题：以下的代码运行后，结果为：
+//			fn2();//程序报错，因为在前面并没有fn2变量
+			var fn2=function(a){
+				alert(a);
+			}
+			fn2();//fn2()放在函数下面执行，弹出值为undefined，因为没有传参
+			fn2(2);//2
+			
+			//第六题：n的值是？
+			var n="miao wei ke tang".indexOf("wei",6);
+			console.log(n);//-1  找不到就返回-1；
+			
+			//第七题：
+			/*
+			 * 下面对substring()方法描述不正确的是：AC
+			 * A：一共有两个参数，省略第一个参数表示从开始的位置提取到字符串结束
+			 * B：提取之前会比较两个参数的大小，并根据大小调整位置
+			 * C：可以接收负数参数，负数表示从后往前数字符的位置
+			 * D：如果没有设置参数，直接返回整个字符串
+			 */
+			
+			//第八题：json对象有一个attr的属性，下面正确的获取方式为：BD
+			//A：foo{"attr"}  B:foo.attr  C:foo("attr") D:foo["attr"]
+			
+			//第九题：下面代码的运行结果
+			alert("12">"9")//false  因为字符串比较时，就是把字符串unicode码进行比较的57>49
+			alert("12".charCodeAt());//转成unicode码是49
+			alert("9".charCodeAt());//转成unicode码是57
+			
+			//第十题：以下代码运行后，结果为：
+			var i=0;
+			console.log(++i==i++);//true
+			
+			//第十一题：下面描述中不正确的是：C
+			/*A、arguments中保存了实际传入函数内的所有参数
+			 *B、return只能在函数内部使用
+			 *C、setInterval（fn1,1000）只能调用一次fn1
+			 *D、Date对象的getMonth（）获取到的值比实际月份要小
+			 */
+			
+			//第十二题：下面成立的是：
+			console.log((12.5)==parseFloat(12.5));//true
+			console.log(Number('')==parseFloat(''));//false
+			console.log(isNaN('abc')==NaN)//false
+			console.log(isNaN('abc'))//true
+			//如果 'abc'是特殊的非数字值 NaN（或者能被转换为这样的值），返回的值就是 true。否则返回 false。
+			console.log(typeof NaN=='number');//true
+			
+			//第十三题：下面描述中不正确的是（多选）：ABC
+			/*A：'=='在比较过程中，不但会比较两边的值，还会比较两边的数据类型//'==='是比较两边的数据类型
+			 * 注：= 赋值运算符 ，== 等于，=== 严格等于 
+ 					==， 两边值类型不同的时候，要先进行类型转换，再比较。 
+					===，不做类型转换，类型不同的一定不等。
+					==先转换类型再比较，===先判断类型，如果不是同一类型直接为false。
+				
+			 *B：NaN==NaN的结果是true 错//应该是false
+			 *C：isNaN,判断传入的参数是否为数字，为数字返回true，否则返回false
+			 *D：arguments中保存了实际传入函数内的所有参数
+			 */
+			console.log(NaN==NaN);//false 本身谁也不等，他是个数字类型，但他本身就不是个数字
+			
+			
+			//第十四题：以下代码中，会出现什么结果：第一次弹？，第二次弹？，第三次弹？
+			function fn1(){
+				var a=0;
+				function fn2(){
+					++a;
+					alert(a);
+				}
+				return fn2;
+			}
+			fn1()();//弹1
+			var newFn=fn1();
+			newFn();//弹1
+			newFn();//弹2
+			
+			//第十五题：以下代码运行后，arr的结果为：
+			var arr=[1,2];
+			var arr2=arr.concat();
+			arr2.push(arr.splice(1,0));
+			console.log(arr2);//[1,2,[]]
+			
+			
+			//第十六题：下面关于数组的描述正确的是：
+			/*A、数组的length既可以获取，也可以修改
+			 *B、调用pop（）方法，不会修改原数组中的值 
+			 *C、shift()方法的返回值是新数组的长度
+			 *D、调用concat（）方法，会修改数组的值
+			 * concat() 方法用于连接两个或多个数组。
+				
+				该方法不会改变现有的数组，而仅仅会返回被连接数组的一个副本。
+			 */
+			
+		</script>
+	</body>
+</html>
