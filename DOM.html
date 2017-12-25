@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<ul id="ul">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+		</ul>
+		
+		<script type="text/javascript">
+			//DOM = 文档对象类型
+			
+			/*页面中所有的内容都叫节点
+			 * 结构：父级
+			 * 	         子级
+			 * 	          兄弟
+			 * 
+			 * 祖孙节点=》从下往上去
+			 * 子孙节点=》从上往下
+			 * 
+			 * nodeType=>查看节点类型
+			 *   
+			 * 		常用的类型：
+			 * 			document 9
+			 * 			元素节点 	 1
+			 * 			文本节点        3
+			 * 				空格和文字都属于文本节点，在一个元素中既有空格又有文字都是一个文本节点
+			 * 			注释节点        8
+			 * 			属性节点   2
+			 * 
+			 * childNodes[num]	  找子节点
+			 * 
+			 * nodeName   节点的名字
+		        
+		       nodeValue  节点的内容
+		        
+		       tagName    大写标签   DIV
+		       
+		       	子级找父级：
+				 * 子级.parentNode  =>找父级
+	
+				        如果一直向上找，那么就
+				        parentNode.parentNode
+				
+				        页面中最大的是document
+			 * 
+			 * 
+			 * 属性节点：
+			 * 
+			 * 	父级节点：
+				 *parent.lastElementChild  父级下面的第一个子节点
+				 *parent.firstElementChild 父级下面的最后一个子节点
+				 * 
+			 * 
+			 * 兄弟节点：
+				 * 	previousElementSibling   上一个兄弟节点
+				 * 	nextElementSibling  下一个兄弟节点
+			 * 
+			 * box[id]不加引号，id是属性
+			 * box['id']加引号,id就是变量，所以获取id值的话，需要加引号
+			 * 
+			 * 获取属性：
+			 * 		box.getAttribute(属性名) 操作行间属性
+			 * 设置属性：
+			 * 		box.setAttribute(属性名) 设置行间属性
+			 * 
+			 * 删除属性：
+			 * 		box.removeAttribute(属性名) 移出行间属性
+			 * 
+			 * ES5:
+			 *   dataset=>给行间添加属性的方式
+			 * 		eg. box.dataset.index=0;
+			 * 		
+			 * 	删除的话也用=》box.removeAttribute(属性名) 移出行间属性
+			 * 
+			 * 
+			 * 
+			 * 创建元素：
+			 * 		document.createElement()
+			 * 
+			 * 在末尾追加元素：
+			 * 		parent.appendChild()
+			 * 		
+			 * 		parent.insertBefore(添加谁，往谁后面添加)
+			 * 
+			 * 删除元素：
+			 * 		parent.removeChild(child) 方法从DOM中删除一个子节点。返回删除的节点。
+			 * 			child 是要移除的那个子节点.
+						parent 是child的父节点.
+			 * 		
+			 * 		高版本浏览器可用：
+			 * 			remove() 方法把从它所属的DOM树中删除对象。
+			 * 			element.remove()
+			 * 
+			 * 		eg.
+						<div id="div-01">Here is div-01</div>
+						<div id="div-02">Here is div-02</div>
+						<div id="div-03">Here is div-03</div>
+						var el = document.getElementById('div-01');
+						
+						el.nextElementSibling.remove();
+						// id 为 'div-02' 的 div 被删掉了
+			 * 
+			 * 
+			 * 
+			 * 动态数组：
+			 * 		getElementByTagName();
+			 * 		className
+			 * 		children
+			 * 
+			 * 
+			 *替换：
+			 * 		定义和用法:
+							replaceChild() 方法用新节点替换某个子节点。
+							这个新节点可以是文档中某个已存在的节点，或者您也可创建新的节点
+			 * 			语法：
+			 * 				parent.replace(newNode,oldNode)
+			 * 						newnode		必需。您希望插入的节点对象。
+									oldnode		必需。您希望删除的节点对象。
+			 * 
+			 * 				eg.document.getElementById("myList").replaceChild(newnode,oldnode);
+			 * 
+			 * 克隆：
+			 * 		定义和用法：
+						cloneNode() 方法创建节点的拷贝，并返回该副本。
+						cloneNode() 方法克隆所有属性以及它们的值。
+						如果您需要克隆所有后代，请把 deep 参数设置 true，否则设置为 false。
+						
+					语法：
+						node.cloneNode(deep)
+							参数
+								deep=>	Boolean	
+								可选。默认是 false。
+								设置为 true，如果您需要克隆节点及其属性，以及后代
+								设置为 false，如果您只需要克隆节点及其后代
+			 * 				
+			 * 				Node 对象	被克隆节点。
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 课外：使用 classList 是一个方便的替代方法，通过element.className作为空格分隔的字符串访问元素的类列表。
+			 * 		方法：
+						add( String [, String] )
+						添加指定的类值。如果这些类已经存在于元素的属性中，那么它们将被忽略。
+						
+						remove( String [,String] )
+						删除指定的类值。
+						
+						item ( Number )
+						按集合中的索引返回类值。
+						
+						toggle ( String [, force] )
+						当只有一个参数时：切换 class value; 即如果类存在，则删除它并返回false，如果不存在，则添加它并返回true。
+						当存在第二个参数时：如果第二个参数的计算结果为true，则添加指定的类值，如果计算结果为false，则删除它
+						
+						contains( String )
+						检查元素的类属性中是否存在指定的类值。
+						
+					eg.
+						// div是具有class =“foo bar”的<div>元素的对象引用
+						div.classList.remove("foo");
+						div.classList.add("anotherclass");
+						
+						// 如果visible被设置则删除它，否则添加它
+						div.classList.toggle("visible");
+						
+						// 添加/删除 visible，取决于测试条件，i小于10
+						div.classList.toggle("visible", i < 10);
+						
+						alert(div.classList.contains("foo"));
+						
+						//添加或删除多个类
+						div.classList.add("foo","bar");
+						div.classList.remove("foo", "bar");
+			 * 
+			 */
+			
+			//动态的数组		
+			let ul=document.getElementById('ul');
+			let lis=ul.children;
+			console.log(lis);
+			
+			for(var i=0;i<lis.length;i++){
+				ul.appendChild(lis[i]);
+			}
+			
+			
+			
+		</script>
+	</body>
+</html>
