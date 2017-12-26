@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			
+		</div>
+		<script type="text/javascript">
+			/* offsetParent 定位父级是谁
+			 * 				默认定位父级为body
+			 * 				只要祖先级有定位，那么子级定位父级为这个父级也加了定位
+			 * 
+			 * offsetLeft:从子级的左外边框到定位父级的左内边框的距离   
+			 * 		1.子级要有定位，定位父级也要有定位
+			 * 		2.子级和定位父级必须要触发haslayout(加宽高、zoom)
+			 * 			zoom：1会触发haslayout
+			 * 			　haslayout是IE7-浏览器的特有属性。hasLayout是一种只读属性，有两种状态：true或false。
+			 * 			    当其为true时，代表该元素有自己的布局，否则代表该元素的布局继承于父元素。
+　						  [注意]通过element.currentStyle.hasLayout可以得出当前元素的hasLayout情况
+			 * 		3.在火狐浏览器下，如果子级有定位，父级也有定位并且父级有边框和overflow:hide;这个时候offsetleft
+			 * 		会重新计算：
+			 * 				offsetLeft-定位父级的border=实际的offsetLeft
+			 * 
+			 * ele.getBoundingClientRect();
+			 * 		 这个方法返回一个矩形对象，包含四个属性：left、top、right和bottom。分别表示元素各边与页面上边和左边的距离
+			 * eg.
+			 * 		alert(box.getBoundingClientRect().top);         // 元素上边距离页面上边的距离
+
+					alert(box.getBoundingClientRect().right);       // 元素右边距离页面左边的距离
+					
+					alert(box.getBoundingClientRect().bottom);      // 元素下边距离页面上边的距离
+					
+					alert(box.getBoundingClientRect().left);        // 元素左边距离页面左边的距离
+			 * 
+			 * clientWidth=>width+padding
+			 * clientHeight=>Height+padding
+			 * 
+			 * offsetWidth=>width+padding+border
+			 * offsetHeight=>height+padding+border
+			 * 
+			 * scrollWidth()=>被内容撑开的宽度
+			 * scrollHeight()=>被内容撑开的高度
+			 */
+			
+			var box=document.getElementById('box');
+			alert(box.currentStyle.hasLayout)//在IE浏览器中实验
+		</script>
+	</body>
+</html>
