@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<script type="text/javascript">
+			/*
+			 * BOM（browser object model）:浏览器对象模型（BOM）以 window 对象为依托，表示浏览器窗口以及页面可见区域
+								  		同时， window对象还是 ECMAScript 中的 Global 对象，因而所有全局变量和
+								  		函数都是它的属性，且所有原生的构造函数及其他函数也都存在于它的命名空间下。
+										BOM提供了独立于浏览器显示内容而与浏览器窗口进行交互的对象。
+				 	
+				 	个人理解是，我们知道浏览器显示的Document,javascrip 要想操作网页，需要DOM来进行访问，但是仅仅只是网页内容。
+				 浏览器除了有显示的内容，还有一个重要的部分就是一个载体，它承载我们看到的内容。好比是一个框架，而操作这个载体的对象
+				 我们把它叫做BOM。所以这样的结构，使得BOM，DOM各司其职，BOM负责跟浏览器框架打交道，DOM负责浏览器内容Document打交道。
+				   
+				   BOM主要用于管理浏览器窗口之间的通讯，由一系列相关的对象构成，并且每个对象都提供了很多方法与属性。通过BOM我们可以学到
+				  与浏览器窗口交互的一些对象，可以移动，调整浏览器大小的window对象，可以用于导航的location对象与history对象，可以获
+				  取浏览器，操作系统与用户屏幕信息的navigator与screen对象，可以使用document作为访问HTML文档的入口，管理框架的frames
+				  对象等。因此它的核心对象是window。
+				  
+				  
+				
+				
+				下列 BOM 的组成部分:
+					 1、在使用框架时，每个框架都有自己的 window 对象以及所有原生构造函数及其他函数的副本。
+						每个框架都保存在 frames 集合中，可以通过位置或通过名称来访问。
+				       2、有一些窗口指针，可以用来引用其他框架，包括父框架。
+					 3、top 对象始终指向最外围的框架，也就是整个浏览器窗口。
+					 4、parent 对象表示包含当前框架的框架，而 self 对象则回指 window 。
+					 5、使用 location 对象可以通过编程方式来访问浏览器的导航系统。设置相应的属性，可以逐段
+						或整体性地修改浏览器的 URL。
+					 6、调用 replace() 方法可以导航到一个新 URL，同时该 URL 会替换浏览器历史记录中当前显示
+						的页面。
+					 7、navigator 对象提供了与浏览器有关的信息。到底提供哪些信息，很大程度上取决于用户的浏
+						览器；不过，也有一些公共的属性（如 userAgent ）存在于所有浏览器中。
+						BOM 中还有两个对象： screen 和 history ，但它们的功能有限。 screen 对象中保存着与客户端
+						显示器有关的信息，这些信息一般只用于站点分析。 history 对象为访问浏览器的历史记录开了一个
+						小缝隙，开发人员可以据此判断历史记录的数量，也可以在历史记录中向后或向前导航到任意页面。
+			 * 
+			 * 		
+			 * 		window对象:BOM的核心对象是window，它表示浏览器的一个实例。在浏览器中，window对象有双重角色，
+			 * 				它既是通过javascript访问浏览器窗口的一个接口，又是ECMAScript规定的Global对象。
+			 * 			
+			 * 				通过window提供api赋予开发者操作
+			 * 			
+			 * 
+			 * 			window.open()=》用于打开一个新的浏览器窗口或查找一个已命名的窗口
+			 * 				语法:
+								window.open(URL,name,features,replace)
+									参数：
+										URL	：一个可选的字符串，声明了要在新窗口中显示的文档的 URL。如果省略了这个参数，
+											或者它的值是空字符串，那么新窗口就不会显示任何文档。
+										name：一个可选的字符串，该字符串是一个由逗号分隔的特征列表，其中包括数字、
+											字母和下划线，该字符声明了新窗口的名称。这个名称可以用作标记 <a> 和 <form>
+											的属性 target 的值。如果该参数指定了一个已经存在的窗口，那么 open() 方法就
+											不再创建一个新窗口，而只是返回对指定窗口的引用。在这种情况下，features 将被忽略。
+										features：一个可选的字符串，声明了新窗口要显示的标准浏览器的特征。如果省略该参数，
+												新窗口将具有所有标准特征。在窗口特征这个表格中，我们对该字符串的格式进行了详细的说明。
+										replace：一个可选的布尔值。规定了装载到窗口的 URL 是在窗口的浏览历史中创建一个新条目，
+												还是替换浏览历史中的当前条目。支持下面的值：
+																		true - URL 替换浏览历史中的当前条目。
+																		false - URL 在浏览历史中创建新的条目。
+			 * 
+			 * 				***重要事项：请不要混淆方法 Window.open() 与方法 Document.open()，这两者的功能完全不同。
+			 * 						为了使您的代码清楚明白，请使用 Window.open()，而不要使用 open()。
+			 * 
+			 * 				eg.
+			 * 					window.open("http://www.w3school.com.cn")//打开窗口
+			 * 
+			 * 					//打开一个新窗口 about:blank，并控制其外观
+		 	* 					window.open("http://www.w3school.com.cn","_blank","toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=400")
+			 * 												窗口特征（Window Features）：
+																	channelmode=yes|no|1|0	是否使用剧院模式显示窗口。默认为 no。
+																	directories=yes|no|1|0	是否添加目录按钮。默认为 yes。
+																	fullscreen=yes|no|1|0	是否使用全屏模式显示浏览器。默认是 no。处于全屏模式的窗口必须同时处于剧院模式。
+																	height=pixels	窗口文档显示区的高度。以像素计。
+																	left=pixels	窗口的 x 坐标。以像素计。
+																	location=yes|no|1|0	是否显示地址字段。默认是 yes。
+																	menubar=yes|no|1|0	是否显示菜单栏。默认是 yes。
+																	resizable=yes|no|1|0	窗口是否可调节尺寸。默认是 yes。
+																	scrollbars=yes|no|1|0	是否显示滚动条。默认是 yes。
+																	status=yes|no|1|0	是否添加状态栏。默认是 yes。
+																	titlebar=yes|no|1|0	是否显示标题栏。默认是 yes。
+																	toolbar=yes|no|1|0	是否显示浏览器的工具栏。默认是 yes。
+																	top=pixels	窗口的 y 坐标。
+																	width=pixels	窗口的文档显示区的宽度。以像素计。
+			 * 					
+			 *					//通过一次点击打开多个窗口
+			 * 						<input type=button value="打开窗口" onclick="open_win()">
+			 * 						function open_win() 
+									{
+										window.open("http://www.microsoft.com/")
+										window.open("http://www.w3school.com.cn/")
+									}
+			 * 
+			 * 
+			 * 
+			 * 			window.close()=》关闭窗口
+			 * 
+			 * 					 close() 将关闭有 window 指定的顶层浏览器窗口。某个窗口可以通过调用 self.close() 或只调用 close() 来关闭其自身。
+								只有通过 JavaScript 代码打开的窗口才能够由 JavaScript 代码关闭。这阻止了恶意的脚本终止用户的浏览器。
+			 * 
+			 * 
+			 * 
+			 * 
+			 * 			弹框类的方法。前面省略window：
+							alert('提示信息')
+							confirm("确认信息")
+							prompt("弹出输入框")
+							open("url地址"，“_black或_self”，“新窗口的大小”）
+							
+							close()  关闭当前的网页
+							
+							定时器，清除定时器。
+							
+							setTimeout(函数，时间) 只执行一次
+							setInterval(函数，时间) 无限执行
+							clearTimeout(定时器名称) 清除定时器
+							
+							
+					location对象：
+							window.location.herf = 'url地址'=》获取地址栏信息
+							window.location.hash(锚信息) 返回#号后面的字符串，不包含散列，则返回空字符串。
+									
+									重点注意：***onhashchange事件=>可以监听hash值的变化，只要hash值改变就会触发这个事件
+											***改变hash值页面是不会跳转的
+											***改变search值页面是会跳转的
+										
+										
+										
+							window.location.host 返回服务器名称和端口号
+							window.location.pathname 返回目录和文件名。 /project/test.html
+							window.location.search 返回=》？号后面到#号之间的所有值。
+							window.location.port 返回URL中的指定的端口号，如URL中不包含端口号返回空字符串
+							window.location.portocol 返回页面使用的协议。 http:或https:
+							
+							
+					Navigator对象：
+							查看浏览器的版本所有信息的对象。
+							
+							window.navigator 对象包含有关访问者浏览器的信息。
+							
+							警告：来自 navigator 对象的信息具有误导性，不应该被用于检测浏览器版本，这是因为：
+														navigator 数据可被浏览器使用者更改
+														浏览器无法报告晚于浏览器发布的新操作系统
+							
+							window.navigator.userAgent
+									字符串
+							
+								注意：这个信息容易被修改，只能做参考，不能100%肯定
+							
+							 
+							
+							
+					screen对象：
+							height: 获取整个屏幕的高。
+							width : 获取整个屏幕的宽。
+							availHeight: 整个屏幕的高减去系统部件的高
+							availWidth : 整个屏幕的宽减去系统部件的宽
+							
+							 
+							
+							
+					history对象：
+							back() 返回上一页。
+							forward() 返回下一页。
+							go(“参数”) -1表示上一页，1表示下一页。
+			 * 
+			 * 		
+			 * 
+			 * 
+			 */
+			
+			alert(window.navigator.userAgent.toLocaleLowerCase())
+			
+		</script>
+	</body>
+</html>
