@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/*
+			 * history 历史记录,***必须在服务器中运行
+			 * 		History 对象:
+						History 对象包含用户（在浏览器窗口中）访问过的 URL。
+						History 对象是 window 对象的一部分，可通过 window.history 属性对其进行访问。
+						注释：没有应用于 History 对象的公开标准，不过所有浏览器都支持该对象。
+						
+						History 对象属性
+							length	返回浏览器历史列表中的 URL 数量。
+							用history.length属性查看历史中的页面数
+										 
+			 * 			History 对象方法
+							back()	加载 history 列表中的前一个 URL。
+							forward()	加载 history 列表中的下一个 URL。
+							go()	加载 history 列表中的某个具体页面。
+								history.go(num)表示向前或向后翻多少页，num为正数表示向前翻，为负数则向后翻。
+							
+							eg.
+								//下面一行代码执行的操作与单击后退按钮执行的操作一样：
+								history.back()
+								
+								//下面一行代码执行的操作与单击两次后退按钮执行的操作一样：
+								history.go(-2)
+								
+								//history.go(-1)和history.back()的区别
+								history.go(-1)表示后退与刷新。如数据有改变也随之改变
+								history.back()只是单纯的返回到上一页。
+
+			 * 			
+			 * 			History 对象描述
+							History 对象最初设计来表示窗口的浏览历史。但出于隐私方面的原因，History 对象
+							不再允许脚本访问已经访问过的实际 URL。唯一保持使用的功能只有 back()、forward() 和 go() 方法。
+			 * 
+			 * 			增改记录：
+			 * 				history.pushState()添加历史记录
+			 * 						语法：history.pushState(statedata, title, url);//修改网站路径并创建新的历史记录
+			 * 							参数URL必须和当前URL同源，否则会报错。只可以修改URL中路径、#号之后的片段（即hash）
+			 * 							或者URL中问号（？）之后的查询区段。
+			 * 							
+			 * 							每执行一次pushState()用新的URL替换掉当前URL，即地址栏URL会变，window.location.href也
+			 * 							会变，同时创建一个新的历史记录。但执行pushState()永远不触发hashchange事件。
+
+										参数statedata可以是任何被序列化的数据，这些数据被保存在用户硬盘上。但状态数据有大小限制，比如
+										Firefox只允许640KB字符。
+										
+										使用pushState()的好处：只改URL的hash部分，window.location使用的是同一个document。
+										
+										兼容性问题:
+											pushState直到IE10才被支持，在早版本的IE中只能通过修改window.location=”#foo”完成，
+											但这样会触发hashchange事件。
+			 * 
+			 * 				hitory.replaceState() 替换当前的历史记录
+			 * 					语法：
+			 * 						history.replaceState(stateData, title, url);//修改网站路径但不创建新的历史记录
+			 * 
+			 * 					replaceState()和pushState()的唯一区别：
+			 * 						replaceState()不创建新的历史记录，而是直接修改当前历史记录。
+			 * 
+			 * 					历史记录状态：
+									有两种方式可以访问历史访问记录的状态信息，history.state返回历史访问堆栈最顶端的记录的状态；
+									而PopStateEvent.state值有在PopStateEvent事件触发的时候在事件监听中才能访问。
+									
+									State的默认值在不同浏览器可能不同，比如IE10以下默认是undefiend，但IE10和IE11默认是null。
+									HTML5推荐使用nul为默认值。
+									
+						
+							popstate事件
+							调用history.back()、history.forward()、history.go()等方法，会触发popstate事件，
+							单纯调用pushState()或replaceState()不触发popstate事件。
+							
+							访问事件的state属性可获取当初pushState()或replaceState()设置的状态数据。
+			 * 				
+			 * 				window.popState()=function(ev){ev.state}//操作前进后退就会触发
+			 */
+		</script>
+	</body>
+</html>
