@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+<style type="text/css">
+body,
+h1 {
+	margin: 0;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+input {
+	outline: none;
+}
+table {
+	border-collapse: collapse;
+	border: #bbb;
+}
+body {
+	width: 100%;
+	height: 100%;
+	/*background: url(img/2.jpg) no-repeat;*/
+}
+.tBody {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	margin-top: 30px;
+	padding: 20px 30px 40px;
+	background-color: rgba(255,255,255,.6);
+}
+.title {
+	text-align: center;
+	color: #fca113;
+	text-shadow: 0 0 2px #fcf913;
+	line-height: 50px;
+}
+table {
+	background-color: #fff;
+}
+th {
+	background-color: #ddd;
+}
+tr {
+	height: 30px;
+}
+ul {
+	padding: 5px 0;
+	width: 600px;
+	text-align: center;
+}
+td{
+	text-align: center;
+}
+td input {
+	margin: 0 2px;
+}
+li {
+	padding: 5px 0;
+	overflow: hidden;
+}
+label {
+	display: inline-block;
+}
+input[type="text"] {
+	border: 1px solid #ccc;
+	width: 80px;
+	height: 20px;
+}
+.active {
+	background-color: #f7cb75;
+}
+#tab tbody tr:hover {
+	background-color: #f7cb75;
+}
+</style>
+</head>
+<body>
+<section class="tBody">
+	<h1 class="title"></h1>
+	<ul id="header">
+		<li class="addPre">
+			<label>名字： <input type="text" name="" /></label>
+			<label>年龄： <input type="text" /></label>
+			<input type="button" class="add" value="添加" />
+		</li>
+		<li>
+			<span>排序</span>
+			<select>
+				<option value="price">年龄</option>
+				<option value="id">编号</option>
+			</select>
+			<select>
+				<option value='2'>从高到底</option>
+				<option value='1'>从低到高</option>
+			</select>
+			<input type="button" class="sub" value="提交" />
+			<input type="button" class="piDelete" value="批量删除" />
+		</li>
+	</ul>
+	<table id="tab" width="600" align="center" border="1">
+		<thead>
+			<th>全选<input type="checkbox" id="checkAll"></th>
+			<th index="id">编号</th>
+			<th>商品</th>
+			<th index="price">年龄</th>
+			<th>操作</th>
+		</thead>
+		<tbody>
+			<!--<tr>
+				<td><input type="checkbox"></td>
+				<td>1</td>
+				<td>露露</td>
+				<td>12</td>
+				<td>
+					<input type="button" value="删除"/>
+					<input type="button" value="上移">
+					<input type="button" value="下移">
+				</td>
+			</tr>-->
+		</tbody>
+	</table>	
+</section>
+</body>
+<script>
+var data = [
+    {
+        'id' : 1,
+        'name' : 'momo',
+        'price' : 36,
+        'checked':false
+    },
+    {
+        'id' : 2,
+        'name' : '小恋',
+        'price' : 40,
+        'checked':false
+    },
+    {
+        'id' : 3,
+        'name' : 'yaya',
+        'price' : 20,
+        'checked':false
+    },
+    {
+        'id' : 4,
+        'name' : 'feifei',
+        'price' : 10,
+        'checked':false
+    },
+    {
+        'id' : 5,
+        'name' : 'hhehe',
+        'price' : 35,
+        'checked':false
+    }
+];
+
+
+
+
+const table=document.getElementsByTagName('table')[0];
+const tbody=table.tBodies[0];
+const add=document.querySelector('.add');
+const input=document.querySelectorAll('label input');
+const sub=document.querySelector('.sub');
+const sel=document.querySelectorAll('select');
+let id=data[data.length-1].id;
+const checkAll=document.querySelector('#checkAll');
+const piDelete=document.querySelector('.piDelete');
+
+
+render();
+
+
+//添加数据
+add.onclick=()=>{
+	if(input[0].value==''||input[1].value==''){
+		alert('请输入内容');
+		return;
+	}
+	
+	id++;
+	data.push({
+		id:id,
+		name : input[0].value,
+        price : input[1].value,
+       checked:false
+	});
+	checkAll.checked = every();
+	
+	render();
+	
+}
+
+//排序
+sub.onclick=()=>{
+	let sel1=sel[0].value;
+	let sel2=sel[1].value;
+
+	if(sel2==='2'){
+		data.sort((a,b)=>{
+			return b[sel1]-a[sel1];
+		})
+	}else{
+		data.sort((a,b)=>{
+			return a[sel1]-b[sel1];
+		})
+	}
+	
+	render();
+
+}
+
+//全选
+checkAll.onclick = function(){
+	data.forEach(e=>{
+		e.checked = this.checked
+	});
+//	console.log(data)
+	render();
+}
+
+
+//批量删除
+piDelete.onclick=()=>{
+	confirm('确定要全部删除吗');
+	data=data.filter(function(e){
+	   return !e.checked;
+	});
+	 render();
+}
+
+//渲染数据
+function render(){
+	let str = '';
+	data.forEach(e=>{
+		let c = '';
+		str += `
+			<tr>
+				<td><input 
+						type="checkbox" 
+						${e.checked?'checked':''}
+					></td>
+				<td>${e.id}</td>
+				<td>${e.name}</td>
+				<td>${e.price}</td>
+				<td>
+					<input type="button" value="删除"/>
+					<input type="button" value="上移">
+					<input type="button" value="下移">
+				</td>
+			</tr>
+		`;
+	});
+	tbody.innerHTML = str;
+	input[0].value = input[1].value = '';
+
+	
+	let check = tbody.querySelectorAll('input[type="checkbox"]');
+	let upBtn = tbody.querySelectorAll('input[value="上移"]');
+	let downBtn = tbody.querySelectorAll('input[value="下移"]');
+	let Delete= tbody.querySelectorAll('input[value="删除"]');
+	
+	for(let i=0;i<check.length;i++){
+		check[i].onclick = function(){
+			
+			data[i].checked = this.checked;
+			
+			checkAll.checked = every();
+		}
+		
+		//上移
+		upBtn[i].onclick=()=>{
+			if(data[i-1]){
+				let c=data[i];//当前数据
+				data[i]=data[i-1];//把data[i]赋值为上一组数据
+				data[i-1]=c;//而上一组数据赋值为当前数据
+				render();
+			}
+			
+		}
+		
+		//下移
+		downBtn[i].onclick=()=>{
+			if(data[i+1]){
+				let c=data[i];
+				data[i]=data[i+1];
+				data[i+1]=c;
+				render();
+			}
+		}
+		
+		Delete[i].onclick=()=>{
+			data.splice(i,1);
+			checkAll.checked = every();
+			render();
+		}
+		
+	}	
+
+
+}
+
+function every(){
+	if (!data.length) return false;
+	return data.every(e=>e.checked);
+}
+
+</script>
+</html>
