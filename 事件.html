@@ -172,6 +172,10 @@
 					
 					2、如何阻止？
 					
+					阻止默认行为方法：return false
+					
+								ev.preventDefault();
+					
 					（1）当前这个行为是什么事件触发的，然后在这个事件处理函数中使用return false;
 					
 					（2）oncontextmenu:右键菜单事件，当右键菜单（环境菜单）显示处理的时候触发
@@ -249,6 +253,41 @@
 			 * 
 			 * 
 			 * 
+			 * 九、其他事件
+			 * 
+			 * 		oncontextmenu =>右键菜单事件
+			 * 		
+			 * 		onscroll=>滚轮事件
+			 * 	
+			 * 		onmousewheel=>可以知道滚轮是向上滚还是向下滚
+			 * 
+				 				1、“mousewheel” 事件中“event.wheelDelta”属性值：返回的值，如果是正值说明滚轮是向上滚动，
+				 				负值说明滚轮是向下滚动；返回的值，均为120 的倍数，即：幅度大小 = 返回的值 / 120。
+				 
+								2、“DOMMouseScroll” 事件中的 “event.detail” 属性值：返回的值，如果是负值说明滚轮是向上滚动
+									（与 “event.wheelDelta”正好相反），正值说明滚轮是向下滚动；返回的值，均为 3 的倍数，
+									即：幅度大小 = 返回的值 / 3。
+									
+								3、“mousewheel” 事件在 Opera 10+ 中却是个特例，既有 “event.wheelDelta” 属性，
+									也有 “event.detail” 属性。
+									
+						detail与wheelDelta：
+
+								判断滚轮向上或向下在浏览器中也要考虑兼容性，现在五大浏览器
+								（IE、Opera、 Safari、Firefox、Chrome）中Firefox 使用detail，
+								其余四类使用wheelDelta；两者只在取值上不一致，代表含义一致，
+								detail与wheelDelta只各取两个 值，detail只取±3，wheelDelta
+								只取±120，其中正数表示为向上，负数表示向下。
+								
+								
+					 onmouseenter
+			         onmouseleave
+			            *** 不冒泡
+			
+			                    解决冒泡：
+			            1.阻止冒泡
+			            2.不绑同一事件名的函数
+			            3.使用类似onmouseenter			
 			 */
 		</script>
 	</body>
